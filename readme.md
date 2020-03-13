@@ -1,5 +1,7 @@
 ![](logo/rabbus-logo.png)
 
+# DO NOT USE THIS LIBRARY ... and definitely do not look inside the source code if you value your sanity...
+
 A highly opinionated, yet minimal, set of message bus abstractions for NodeJS.
 It is built on top of [RabbitMQ](http://rabbitmq.com), 
 with [rabbot](https://github.com/arobson/rabbot) as the primary library
