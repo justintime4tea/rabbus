@@ -69,7 +69,7 @@ Topology.prototype._start = function(){
       var hasExchange = !!exchange;
       var hasQueue = !!queue;
       if (hasExchange && hasQueue){
-        return this._addBinding(exchange.name, queue.name, routingKey);
+        return this._addBinding(exchange.name, queue.name, routingKey, exchange.connectionName);
       }
     })
     .then(() => resolve())
@@ -104,16 +104,16 @@ Topology.prototype._addQueue = function(queueOptions){
   logger.debug("With Queue Options");
   logger.debug(queueOptions);
 
-  var qP = this.rabbit.addQueue(queueOptions.name, queueOptions);
+  var qP = this.rabbit.addQueue(queueOptions.name, queueOptions, queueOptions.connectionName || null);
   return qP;
 };
 
-Topology.prototype._addBinding = function(ex, q, routingKey){
+Topology.prototype._addBinding = function(ex, q, routingKey, connectionName){
   if ((!ex) || (!q)){ return ; }
 
   logger.debug("Add Binding", ex, q, routingKey);
 
-  var bP = this.rabbit.bindQueue(ex, q, routingKey);
+  var bP = this.rabbit.bindQueue(ex, q, routingKey, connectionName);
   return bP;
 };
 

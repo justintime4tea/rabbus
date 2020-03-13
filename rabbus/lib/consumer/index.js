@@ -71,7 +71,13 @@ Consumer.prototype.consume = function(cb){
       middleware(body, properties, actions);
     });
 
-    rabbit.startSubscription(queue);
+    rabbit.startSubscription(
+      queue,
+      false,
+      this.options.connectionName ||
+        this.options.exchange
+        ? (this.options.exchange.connectionName || this.options.queue ? this.options.queue.connectionName : null)
+        : null);
 
     logger.info("Listening To Queue", queue);
   });
